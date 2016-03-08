@@ -89,6 +89,22 @@ const SOURCES = [
   'src/ripple/ripple.js'
 ];
 
+const COMPONENT_HEADER = `---
+layout: component
+bodyclass: component\n
+include_prefix: ../../
+---
+
+`;
+
+const DEMO_HEADER = `---
+layout: demo
+bodyclass: demo\n
+include_prefix: ../../
+---
+
+`;
+
 // ***** Development tasks ****** //
 
 // Lint JS sources.
@@ -362,9 +378,7 @@ function applyTemplate() {
 gulp.task('components', ['demos'], () => {
   return gulp.src('src/**/README.md', {base: 'src'})
     // Add basic front matter.
-    .pipe($.header(
-        '---\nlayout: component\nbodyclass: component\n' +
-        'include_prefix: ../../\n---\n\n'))
+    .pipe($.header(COMPONENT_HEADER))
     .pipe($.frontMatter({
       property: 'page',
       remove: true
@@ -425,9 +439,7 @@ gulp.task('demos', ['demoresources'], () => {
     ])
     .pipe($.concat('/demo.html'))
     // Add basic front matter.
-    .pipe($.header(
-        '---\nlayout: demo\nbodyclass: demo\n' +
-        'include_prefix: ../../\n---\n\n'))
+    .pipe($.header(DEMO_HEADER))
     .pipe($.frontMatter({
       property: 'page',
       remove: true
